@@ -13,13 +13,20 @@ export default function TodoInput({ onAdd }) {
 
   return (
     <>
-      <form action="" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} aria-label="Add todo form">
+        <label htmlFor="todo-input" className="sr-only">
+          Add todo
+        </label>
         <input
-          value={text}
+          id="todo-input"
           type="text"
+          value={text}
           onChange={(e) => setText(e.target.value)}
+          placeholder="Enter a todo..."
+          title="Enter a todo"
+          required
         />
-        <button>Add</button>
+        <button type="submit">Add</button>
       </form>
     </>
   );
