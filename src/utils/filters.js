@@ -1,12 +1,14 @@
+import { FILTER, SORT_ORDERS } from "./filterConfig";
+
 //filter
 
 export const toggleFilter = (array, filter) => {
   switch (filter) {
-    case "active":
+    case FILTER.ACTIVE:
       return array.filter((item) => !item.completed);
-    case "completed":
+    case FILTER.COMPLETED:
       return array.filter((item) => item.completed);
-    case "all":
+    case FILTER.ALL:
     default:
       return array;
   }
@@ -15,12 +17,11 @@ export const toggleFilter = (array, filter) => {
 //sorting helpers
 
 export const sortAZ = (array) => {
-  return [...array].sort((a, b) => a.title.localCompare(b.title));
+  return [...array].sort((a, b) => a.title.localeCompare(b.title));
 };
 export const sortZA = (array) => {
-  return [...array].sort((a, b) => b.title.localCompare(a.title));
+  return [...array].sort((a, b) => b.title.localeCompare(a.title));
 };
-
 const sortNewest = (array) => {
   return [...array].sort((a, b) => b.createdAt - a.createdAt);
 };
@@ -33,17 +34,15 @@ const sortOldest = (array) => {
 
 export const sortArray = (array, sortOrder) => {
   switch (sortOrder) {
-    case "az":
+    case SORT_ORDERS.AZ:
       return sortAZ(array);
-    case "za":
+    case SORT_ORDERS.ZA:
       return sortZA(array);
-    case "newest":
+    case SORT_ORDERS.NEW_OLD:
       return sortNewest(array);
-    case "oldest":
+    case SORT_ORDERS.OLD_NEW:
       return sortOldest(array);
     default:
       return array;
   }
 };
-
-sortArray(toggleFilter(TodoList, "completed"), "az");

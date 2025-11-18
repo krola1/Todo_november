@@ -2,9 +2,14 @@ import { useState } from "react";
 import TodoInput from "./TodoInput";
 import TodoFilters from "./TodoFilters";
 import TodoList from "./TodoList";
+import { FILTER, SORT_ORDERS } from "../utils/filterConfig";
+import { sortArray, toggleFilter } from "../utils/filters";
 
 export default function TodoApp() {
   const [todos, setTodos] = useState([]);
+
+  const [filter, setFilter] = useState(FILTER.ALL);
+  const [sortOrder, setSortOrder] = useState(SORT_ORDERS.AZ);
 
   const createTask = (text) => {
     return {
@@ -34,8 +39,12 @@ export default function TodoApp() {
     <>
       <h1>Velkommen</h1>
       <TodoInput onAdd={addTask} />
-      <TodoFilters />
-      <TodoList todos={todos} onDelete={deleteTask} onToggle={toggleComplete} />
+      <TodoFilters {...{ filter, setFilter, sortOrder, setSortOrder }} />
+      <TodoList
+        todos={sortArray(toggleFilter(todos, filter), sortOrder)}
+        onDelete={deleteTask}
+        onToggle={toggleComplete}
+      />
     </>
   );
 }
