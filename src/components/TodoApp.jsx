@@ -38,6 +38,14 @@ export default function TodoApp() {
     );
   };
 
+  const editTask = (id, newText) => {
+    setTodos((prev) =>
+      prev.map((task) => {
+        return task.id === id ? { ...task, title: newText } : task;
+      })
+    );
+  };
+
   return (
     <>
       <h1>Velkommen</h1>
@@ -47,6 +55,7 @@ export default function TodoApp() {
         todos={sortArray(toggleFilter(todos, filter), sortOrder)}
         onDelete={deleteTask}
         onToggle={toggleComplete}
+        onEdit={editTask}
       />
     </>
   );
