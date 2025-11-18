@@ -4,9 +4,12 @@ import TodoFilters from "./TodoFilters";
 import TodoList from "./TodoList";
 import { FILTER, SORT_ORDERS } from "../utils/filterConfig";
 import { sortArray, toggleFilter } from "../utils/filters";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export default function TodoApp() {
-  const [todos, setTodos] = useState([]);
+  //_______________________________________
+  const [todos, setTodos] = useLocalStorage("todo", []);
+  ///_______________________________________________
 
   const [filter, setFilter] = useState(FILTER.ALL);
   const [sortOrder, setSortOrder] = useState(SORT_ORDERS.AZ);
